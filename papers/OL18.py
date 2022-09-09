@@ -4,6 +4,7 @@ import sys
 #Feel free to use, please cite
 # - Liu & Ormel (2018) [Paper I]
 # - Ormel & Liu (2018) [Paper II]
+#
 
 def epsilon (mode='', times_eta=False, **pars):
     """
