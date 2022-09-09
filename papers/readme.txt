@@ -1,8 +1,9 @@
 Various python scripts implementations 
 =====================================
 
-OL18
-----
+
+OL18.py
+-------
 Ormel & Liu (2018), also covering
     Liu & Ormel (2018)
 
