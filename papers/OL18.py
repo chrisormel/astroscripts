@@ -38,6 +38,7 @@ def epsilon (mode='', times_eta=False, **pars):
         alphaz  :turbulence diffusivity parameterization in z-direction
         taucorr :dimensionless turbulence correlation time (tcorr*\Omega)
         hgas    :gas aspect ratio
+        hP      :pebble aspect ratio (optional)
         eta     :gas dimensionless pressure gradient
         sigvec  :turbulence rms velocity components
         nvec    :relative strengths (x,y,z) turbulent velocity components
@@ -214,8 +215,10 @@ def epsilon (mode='', times_eta=False, **pars):
         if mode.count('3d')==0:
             eps2Dbal = eps_2D_bal (delV=delV, **pars)
             if doCalcfset: eps2Dbal *= (1-fset)
+
+        #[22.09.28]I removed "hP=heff" from expression below
         if mode.count('2d')==0:
-            eps3Dbal = eps_3D_bal (delV=delV, hP=heff, **pars)
+            eps3Dbal = eps_3D_bal (delV=delV, **pars)
             #[21.09.08]:corrected this expression
             if doCalcfset: eps3Dbal *= (1-fset**2)
 
