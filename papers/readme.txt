@@ -1,10 +1,18 @@
 Various python scripts implementations 
 ======================================
 
+OL07.py
+-------
+Reference:
+    Ormel & Cuzzi (2007)
+
+Calculation of relative velocity in turbulence flows
+
 
 OL18.py
 -------
-Ormel & Liu (2018), also covering
+Reference:
+    Ormel & Liu (2018)
     Liu & Ormel (2018)
 
-Calculationg of pebble accretion probability for a single planet (very general)
+Calculation of pebble accretion probability for a single planet (very general)
