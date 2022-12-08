@@ -56,7 +56,7 @@ def delp_HN90 (p1, p2, b):
     R7 = 1.73
 
     delp1 = -9/b**3 *(( 2/9 -R2/2)*p2 -R4*p1*p2/b )
-    delp2 = -9/b**2 *((-2/9 -R2/2)*p1/b +R6*p1**2/b**2 +R7*p2**2/b**2)
+    delp2 = -9/b**2 *(-R1 -(2/9 +R2/2)*p1/b +R6*p1**2/b**2 +R7*p2**2/b**2)
 
     return delp1, delp2
 
@@ -68,8 +68,9 @@ def b_kick (qp, eta, eeq, b=1.9):
 
     #convert eccentricity vector to Hill units
     #p1 = -2*eeq**2 /(qp/3)**(1/3)
+    #p2 = eeq /(qp/3)**(1/3)
     p1 = 0.
-    p2 = eeq /(qp/3)**(1/3)
+    p2 = np.sqrt(1.5*eta*b /(qp/3)**(1/3))
 
     delp1, delp2 = delp_HN90 (p1, p2, b)
 
@@ -78,14 +79,14 @@ def b_kick (qp, eta, eeq, b=1.9):
     dele2 = e2 -eeq**2
 
     #and the corresponding change in \Delta b
-    #(Eq.12 of HO23)
+    #(Eq.10 of HO23)
     delb = np.sqrt(4/3 *dele2)
 
     return delb
 
 
 def St_res_weak (qp, eta, b=1.9):
-    Awd = 2.6
+    Awd = 2.7
 
     #equilibrium eccentricity for j+1:j resonance
     #(independent of j)
@@ -121,7 +122,9 @@ def epsilon_HO (Starr, qp, eta, rcap, reduceRes=False):
     Stres_wk = St_res_weak (qp, eta)
 
     #decide to use weak or strong limit
-    Stres = np.where(Stcrit>Stres_str, Stres_wk, Stres_str)
+    #Stres = np.where(Stcrit>Stres_str, Stres_wk, Stres_str)
+    Stres = np.where(Stcrit>Stres_wk, Stres_str, Stres_wk)
+    Stres = Stres_str
 
     epsarr = epsplat.copy()
     ires = Starr>Stres
