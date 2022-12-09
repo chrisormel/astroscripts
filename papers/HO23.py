@@ -64,23 +64,28 @@ def delp_HN90 (p1, p2, b):
 def b_kick (qp, eta, eeq, b=1.9):
     """
     Hasegawa expressions with p1=0
+
+    Hasegawa uses Hill units (e.g, b=1.9)
+    but we convert back/forth to orbital units
     """
+    hM = (qp/3)**(1/3)
 
     #convert eccentricity vector to Hill units
     #p1 = -2*eeq**2 /(qp/3)**(1/3)
     #p2 = eeq /(qp/3)**(1/3)
     p1 = 0.
-    p2 = np.sqrt(1.5*eta*b /(qp/3)**(1/3))
+    p2 = np.sqrt(1.5*eta*b /hM)
 
     delp1, delp2 = delp_HN90 (p1, p2, b)
 
     #convert back to orbital units
-    e2 = ((p1+delp1)**2 +(p2+delp2)**2) *(qp/3)**(2/3)
+    e2 = ((p1+delp1)**2 +(p2+delp2)**2) *hM**2
     dele2 = e2 -eeq**2
 
     #and the corresponding change in \Delta b
     #(Eq.10 of HO23)
-    delb = np.sqrt(4/3 *dele2)
+    bnew2 = 4/3 *dele2 + (b*hM)**2
+    delb = np.sqrt(bnew2) -b*hM
 
     return delb
 
@@ -124,7 +129,8 @@ def epsilon_HO (Starr, qp, eta, rcap, reduceRes=False):
     #decide to use weak or strong limit
     #Stres = np.where(Stcrit>Stres_str, Stres_wk, Stres_str)
     Stres = np.where(Stcrit>Stres_wk, Stres_str, Stres_wk)
-    Stres = Stres_str
+
+    #print('crit strong weak', Stcrit, Stres_str, Stres_wk)
 
     epsarr = epsplat.copy()
     ires = Starr>Stres
