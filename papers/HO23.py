@@ -91,7 +91,7 @@ def b_kick (qp, eta, eeq, b=1.9):
 
 
 def St_res_weak (qp, eta, b=1.9):
-    Awd = 2.7
+    Awd = 3.5
 
     #equilibrium eccentricity for j+1:j resonance
     #(independent of j)
@@ -127,7 +127,6 @@ def epsilon_HO (Starr, qp, eta, rcap, reduceRes=False):
     Stres_wk = St_res_weak (qp, eta)
 
     #decide to use weak or strong limit
-    #Stres = np.where(Stcrit>Stres_str, Stres_wk, Stres_str)
     Stres = np.where(Stcrit>Stres_wk, Stres_str, Stres_wk)
 
     #print('crit strong weak', Stcrit, Stres_str, Stres_wk)
