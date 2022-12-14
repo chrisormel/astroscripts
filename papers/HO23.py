@@ -7,7 +7,7 @@ def epsilon_plateau (St, xp):
 
     xp -- planet radius normalized by Hill radius
     """
-    ps = 3.8/St
+    ps = np.maximum(1, 3.8/St)
     pb = np.minimum(1, 2.36 *xp**0.5)
     pi = 0.610
 
@@ -121,7 +121,7 @@ def epsilon_HO (Starr, qp, eta, rcap, reduceRes=False):
     epsbal, epsset = epsilon_balset (Starr, qp, eta, rcap)
 
     #expressions to obtain critical Stokes numbers, Eq. (24,25,27,31) of HO23
-    Stplat = 5.56 *eta/qp**(2/3)    
+    Stplat = 5.58 *eta/qp**(2/3)    
     Stcrit = 168 *(qp/3e-6)**(-1/3)
     Stres_str = 36.0 *(eta/1e-3) *(qp/3e-6)**(-2/3) #the strong version
     Stres_wk = St_res_weak (qp, eta)
