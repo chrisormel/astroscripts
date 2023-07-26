@@ -217,8 +217,10 @@ def epsilon (mode='', times_eta=False, **pars):
             if doCalcfset: eps2Dbal *= (1-fset)
 
         #[22.09.28]I removed "hP=heff" from expression below
+        #[23.07.26]in 3D heff is determined above and should be added here...
+        #           (i.e., dont understand previous comment)
         if mode.count('2d')==0:
-            eps3Dbal = eps_3D_bal (delV=delV, **pars)
+            eps3Dbal = eps_3D_bal (delV=delV, hP=heff, **pars)
             #[21.09.08]:corrected this expression
             if doCalcfset: eps3Dbal *= (1-fset**2)
 

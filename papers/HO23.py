@@ -134,22 +134,33 @@ def epsilon_HO (Starr, qp, eta, rcap, reduceRes=False):
     epsarr = epsplat.copy()
     ires = Starr>Stres
 
-    if reduceRes:
+    if reduceRes and np.any(ires):
         #here we simply assing the plateau value
         #rather than interatively
         #decreasing the mass/size of particles in some way
-        epsarr[ires] = epsilon_plateau (Stres[ires], Rcap_to_Rh[ires])
-    else:
+        if type(epsarr)==np.ndarray:
+            epsarr[ires] = epsilon_plateau (Stres[ires], Rcap_to_Rh[ires])
+        else:
+            epsarr = epsilon_plateau (Stres, Rcap_to_Rh)
+
+    elif np.any(ires):
         epsarr[ires] = 0.0 #put zero for simplicity
 
     ii = Starr<Stplat
 
     #epsarr[ii] = np.sqrt(epsset1[ii]**2 +epsbal1[ii]**2 *Starr[ii]**2)
-    epsarr[ii] = np.maximum(epsset1, epsbal1 *Starr[ii])
+
+    if type(epsarr)==np.ndarray:
+        epsarr[ii] = np.maximum(epsset1, epsbal1 *Starr[ii])
+    elif ii:
+        epsarr = max(epsset1, epsbal1 *Starr)
 
 
     ii = Starr<1.0
-    epsarr[ii] = epsset[ii]
+    if type(epsarr)==np.ndarray:
+        epsarr[ii] = epsset[ii]
+    elif ii:
+        epsarr = epsset
 
     return epsarr, Stplat, Stcrit, Stres
 
