@@ -31,7 +31,7 @@ been calibrated against three-body simulations.
 HO23.py
 -------
 Reference:
-    Huang & Ormel (2023, in preparation)
+    H. Huang & Ormel (2023)
 
 Calculation of pebble accretion probability (epsilon) for a single planet in
 the limit of aerodynamically large pebbles (St>1). The expressions apply only
