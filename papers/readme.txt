@@ -1,3 +1,9 @@
+Corrections
+===========
+corrections.pdf -- list of corrections to published articles in scientific journals
+
+
+
 Various python scripts implementations 
 ======================================
 
