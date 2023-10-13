@@ -86,16 +86,17 @@ def get_f2p (j):
 def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=None,
                 h=0.1, gamI=1.9, Ce=0.11, tPer=None):
     """
-    Calculate the critical migration speed, according to 
+    Calculates the critical migration speed, according to 
     eq.26 of Huang & Ormel (2023)
 
-    !NOTE:  default Ce parameter has been updated to 0.11, after
-            fixing a mistake in the pusblished paper. See the erratum.
+    !NOTE  
+        default Ce parameter has been updated to 0.11, after
+        fixing a mistake in the pusblished paper. See the erratum.
 
-            in comments here any "tau" refers to dimensionless parameter
-            (normalized by orbital frequency), "t" are times.
+            in comments here any "tau" refers to dimensionless time
+            (times multiplied by orbital frequency), "t"-s are real times.
 
-    INPUT:
+    INPUT 
         j:          resonance index (j+1:j resonance)
         qp:         mass-to-central (stellar) mass for the perturber
                     (the more massive planet, assumed to move on near-circular orbit)
@@ -110,7 +111,7 @@ def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=N
                     it using the isothermal disk profile
 
 
-    RETURNS:
+    RETURNS 
         the critical migration threshold ta_crit, either in its dimensionles 
         form (multiplied by the orbital frequence) or dimensional when the 
         orbital period tPer is provided.
