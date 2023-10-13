@@ -134,16 +134,18 @@ def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=N
         else:
             f2p = calc_f2(j)
         ffac = f2p
+        jj = j
     else:
         if j<=9:
             f1 = get_f1(j)
         else:
             f1 = calc_f1(j)
         ffac = al*np.abs(f1)
+        jj = j1
 
     #eq.26 of HO23
     if tau_e is not None:
-        tau_crit = 1/(2*j1*ffac**2*qp**2*tau_e)
+        tau_crit = 1/(2*jj*ffac**2*qp**2*tau_e)
     else:
         tau_crit = 1/np.sqrt(2*j1*te_over_ta) /(ffac*qp)
 
