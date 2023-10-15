@@ -84,31 +84,40 @@ def get_f2p (j):
 
 
 def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=None,
-                h=0.1, gamI=1.9, Ce=0.11, tPer=None):
+                haspect=0.1, gamI=1.9, Ce=0.11, tPer=None):
     """
-    Calculates the critical migration speed, according to 
-    eq.26 of Huang & Ormel (2023)
+    Calculates the critical migration time, above which a migrating planet will get 
+    trapped in resonance due to the resonance forcing of a pertuber planet.
+
+    This follows eq.26 of Huang & Ormel (2023), which we generalized to also cover
+    the case of an inner pertuber.
 
     !NOTE  
         default Ce parameter has been updated to 0.11, after
         fixing a mistake in the pusblished paper. See the erratum.
 
-            in comments here any "tau" refers to dimensionless time
-            (times multiplied by orbital frequency), "t"-s are real times.
+        in comments here any "tau" refers to dimensionless time
+        (times multiplied by orbital frequency), "t"-s are real times.
 
     INPUT 
         j:          resonance index (j+1:j resonance)
         qp:         mass-to-central (stellar) mass for the perturber
                     (the more massive planet, assumed to move on near-circular orbit)
 
-        innerPerturber: whether the perturber planet is an inner or outer one
-                        (HO23 considered an outer perturber)
+        innerperturber: 
+                    whether the perturber planet is an inner or outer one
+                    in case of an inner perturber all quantities other than qp
+                    (tau_e... tPer) concern the outer planet. Vice versa for
+                    an outer perturber (innerperturber=False)
+                    HO23 considered an outer perturber
 
        [tau_e]:     the dimensionless eccentricity damping parameter
        [tau_wave]:  the dimensionless wave damping parameter
                     (see eq. 8 of HO23)
        [te_over_ta]:if provided, use this value instead of calculating 
                     it using the isothermal disk profile
+       [haspect]:   aspect ratio at the location of the migrating planet
+       [tPer]:      orbital period at the location of the migrating planet
 
 
     RETURNS 
@@ -124,7 +133,7 @@ def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=N
         tau_e = Ce*tau_wave/0.78
     elif te_over_ta is None:
         #eq. 9 of HO23
-        te_over_ta = Ce/(0.78*gamI) *h**2
+        te_over_ta = Ce/(0.78*gamI) *haspect**2
 
     #after this we either have an eccentricity damping timescale (te)
     #or the damping ratio te/ta
@@ -158,7 +167,7 @@ def ta_crit (j, qp, innerperturber=True, tau_e=None, te_over_ta=None, tau_wave=N
 
 #just to test it out
 if __name__=='__main__':
-    for j in range(1,10):
+    for j in range(1,15):
         f2p = calc_f2 (j)
         if j==1:
             f2p = f2p -2**(1/3)
